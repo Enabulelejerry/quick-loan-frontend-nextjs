@@ -103,16 +103,39 @@ function Navbar() {
                 FAQ
               </Link>
 
-              <div className="flex flex-col space-y-2 px-3 py-2">
-                <Link href="/auth/login">
-                  <Button variant="outline" className="w-full">
-                    Login
+              {user ? (
+                <div className="space-y-2 px-3 py-2">
+                  <div className="text-sm text-gray-600">
+                    Welcome, {user.name}
+                  </div>
+                  <Link href={dashboardPath}>
+                    <Button variant="outline" className="w-full">
+                      Dashboard
+                    </Button>
+                  </Link>
+                  {user.role === "user" && (
+                    <Link href="/user/apply">
+                      <Button variant="outline" className="w-full">
+                        Apply for Loan
+                      </Button>
+                    </Link>
+                  )}
+                  <Button variant="outline" className="w-full" onClick={logout}>
+                    Sign out
                   </Button>
-                </Link>
-                <Link href="/auth/register">
-                  <Button className="w-full">Get Started</Button>
-                </Link>
-              </div>
+                </div>
+              ) : (
+                <div className="flex flex-col space-y-2 px-3 py-2">
+                  <Link href="/auth/login">
+                    <Button variant="outline" className="w-full">
+                      Login
+                    </Button>
+                  </Link>
+                  <Link href="/auth/register">
+                    <Button className="w-full">Get Started</Button>
+                  </Link>
+                </div>
+              )}
             </div>
           </div>
         )}
