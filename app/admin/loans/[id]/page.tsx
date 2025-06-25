@@ -179,6 +179,7 @@ export default function AdminLoanDetailPage() {
                               <th className="text-left py-2">Due Date</th>
                               <th className="text-right py-2">Payment</th>
                               <th className="text-right py-2">Principal</th>
+                              <th className="text-right py-2">Status</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -191,11 +192,22 @@ export default function AdminLoanDetailPage() {
                                       payment.due_date
                                     ).toLocaleDateString()}
                                   </td>
+
                                   <td className="py-2 text-right font-medium">
                                     ₦{Number(payment.amount_due).toFixed(2)}
                                   </td>
                                   <td className="py-2 text-right">
                                     ₦{Number(loan.amount).toFixed(2)}
+                                  </td>
+                                  <td className="py-2 text-right">
+                                    <div
+                                      className={`inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs ${getStatusColor(
+                                        payment.status
+                                      )}`}
+                                    >
+                                      {payment.status.charAt(0).toUpperCase() +
+                                        payment.status.slice(1)}
+                                    </div>
                                   </td>
                                 </tr>
                               ))
