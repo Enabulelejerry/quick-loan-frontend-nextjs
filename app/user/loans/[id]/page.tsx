@@ -33,6 +33,7 @@ export default function LoanDetailPage() {
   const { id } = useParams();
   const { data: loan, isPending } = useAuthUserLoan(id as string);
   const { user } = useAuth();
+
   const totalPaid =
     loan?.repayment_schedules
       ?.filter((s) => s.status === "paid")
@@ -61,12 +62,12 @@ export default function LoanDetailPage() {
   };
 
   return (
-    <div className="flex h-screen bg-gray-50">
+    <div className="flex flex-col md:flex-row min-h-screen bg-gray-50">
       <UserSidebar />
 
       <div className="flex-1 md:ml-64">
         <main className="flex-1 p-4 md:p-8">
-          <div className="max-w-6xl mx-auto">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             {/* Header */}
             <div className="mb-8">
               <Link
@@ -76,7 +77,9 @@ export default function LoanDetailPage() {
                 <ArrowLeft className="h-4 w-4 mr-2" />
                 Back to Loan History
               </Link>
-              <h1 className="text-3xl font-bold text-gray-900">Loan Details</h1>
+              <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">
+                Loan Details
+              </h1>
               <p className="text-gray-600">
                 Complete information about your loan
               </p>
@@ -90,7 +93,7 @@ export default function LoanDetailPage() {
               <div>
                 <Card className="mb-5">
                   <CardHeader>
-                    <div className="flex items-center justify-between">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                       <div>
                         <CardTitle className="flex items-center gap-2">
                           {loan?.loan_product.name}
@@ -102,7 +105,7 @@ export default function LoanDetailPage() {
                           Loan ID: 000{loan?.id}
                         </CardDescription>
                       </div>
-                      <div className="text-right">
+                      <div className="text-left sm:text-right">
                         <p className="text-2xl font-bold text-primary">
                           N{loan?.amount.toLocaleString()}
                         </p>
@@ -111,7 +114,7 @@ export default function LoanDetailPage() {
                     </div>
                   </CardHeader>
                   <CardContent>
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mb-6">
                       <div className="flex items-center gap-2">
                         <Percent className="h-4 w-4 text-gray-400" />
                         <div>
@@ -161,7 +164,7 @@ export default function LoanDetailPage() {
                         <Progress value={progressPercentage} className="h-2" />
                       </div>
 
-                      <div className="grid grid-cols-2 gap-4 p-4 bg-gray-50 rounded-lg">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 bg-gray-50 rounded-lg">
                         <div>
                           <p className="text-sm text-gray-600">Total Paid</p>
                           <p className="text-lg font-semibold text-green-600">
@@ -197,7 +200,7 @@ export default function LoanDetailPage() {
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <div className="overflow-x-auto">
+                    <div className="overflow-x-auto w-full max-w-full">
                       <table className="w-full text-sm">
                         <thead>
                           <tr className="border-b">
@@ -227,7 +230,6 @@ export default function LoanDetailPage() {
                               <td className="py-3 text-right">
                                 N{loan?.amount}
                               </td>
-
                               <td className="py-3 text-center">
                                 <div
                                   className={`inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs ${getStatusColor(
@@ -239,7 +241,7 @@ export default function LoanDetailPage() {
                                     payment.status.slice(1)}
                                 </div>
                               </td>
-                              <td className="py-3 ">
+                              <td className="py-3">
                                 {payment.status === "pending" && (
                                   <MakePaymentButton
                                     email={user?.email || ""}
@@ -257,7 +259,6 @@ export default function LoanDetailPage() {
                 </Card>
               </div>
             )}
-            {/* Loan Overview */}
           </div>
         </main>
       </div>
