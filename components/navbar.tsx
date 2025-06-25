@@ -104,11 +104,11 @@ function Navbar() {
               </Link>
 
               {user ? (
-                <div className="space-y-2 px-3 py-2">
+                <div className="space-y-3 px-3 py-2">
                   <div className="text-sm text-gray-600">
                     Welcome, {user.name}
                   </div>
-                  <Link href={dashboardPath}>
+                  <Link href={dashboardPath} className="">
                     <Button variant="outline" className="w-full">
                       Dashboard
                     </Button>
@@ -125,7 +125,7 @@ function Navbar() {
                   </Button>
                 </div>
               ) : (
-                <div className="flex flex-col space-y-2 px-3 py-2">
+                <div className="flex flex-col space-y-3 px-3 py-2">
                   <Link href="/auth/login">
                     <Button variant="outline" className="w-full">
                       Login

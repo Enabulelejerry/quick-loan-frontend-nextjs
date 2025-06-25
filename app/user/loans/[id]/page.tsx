@@ -243,7 +243,7 @@ export default function LoanDetailPage() {
                                 </div>
                               </td>
                               <td className="py-3">
-                                {payment.status === "approved" && (
+                                {loan.status === "approved" && (
                                   <MakePaymentButton
                                     email={user?.email || ""}
                                     amount={Number(payment.amount_due)}
@@ -287,7 +287,7 @@ export default function LoanDetailPage() {
                               {payment.status.charAt(0).toUpperCase() +
                                 payment.status.slice(1)}
                             </span>
-                            {payment.status === "approved" && (
+                            {loan.status === "approved" && (
                               <MakePaymentButton
                                 email={user?.email || ""}
                                 amount={Number(payment.amount_due)}
