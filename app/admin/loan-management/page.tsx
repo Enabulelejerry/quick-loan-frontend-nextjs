@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/card";
 import { useAdminLoans } from "@/hooks/useAdminLoans";
 
-import { Edit, Eye, Search, Trash2 } from "lucide-react";
+import { Edit, Eye, Plus, Search, Trash2 } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 
@@ -33,6 +33,14 @@ function Page() {
                 <p className="text-gray-600">
                   Create, manage, and monitor loan products
                 </p>
+              </div>
+              <div className="flex gap-3">
+                <Link href="/admin/loan-management/create">
+                  <Button>
+                    <Plus className="h-4 w-4 mr-2" />
+                    Create New Loan
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>
@@ -81,20 +89,7 @@ function Page() {
                           <td className="py-4 px-2 text-center font-semibold">
                             {loan.duration_days} days
                           </td>
-                          {/* <td className="py-4 px-2 text-center">
-                          <span className="font-semibold">
-                            {loan.totalApplications}
-                          </span>
-                          <p className="text-xs text-gray-600">
-                            {loan.approvedApplications} approved (
-                            {Math.round(
-                              (loan.approvedApplications /
-                                loan.totalApplications) *
-                                100
-                            )}
-                            %)
-                          </p>
-                        </td> */}
+
                           <td className="py-4 px-2 text-center">
                             <div className="flex justify-center gap-1">
                               <Link href={`/admin/loan-management/${loan.id}`}>
