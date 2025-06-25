@@ -243,13 +243,14 @@ export default function LoanDetailPage() {
                                 </div>
                               </td>
                               <td className="py-3">
-                                {loan.status === "approved" && (
-                                  <MakePaymentButton
-                                    email={user?.email || ""}
-                                    amount={Number(payment.amount_due)}
-                                    repaymentScheduleId={payment.id}
-                                  />
-                                )}
+                                {loan.status === "approved" &&
+                                  payment.status === "pending" && (
+                                    <MakePaymentButton
+                                      email={user?.email || ""}
+                                      amount={Number(payment.amount_due)}
+                                      repaymentScheduleId={payment.id}
+                                    />
+                                  )}
                               </td>
                             </tr>
                           ))}
@@ -287,13 +288,14 @@ export default function LoanDetailPage() {
                               {payment.status.charAt(0).toUpperCase() +
                                 payment.status.slice(1)}
                             </span>
-                            {loan.status === "approved" && (
-                              <MakePaymentButton
-                                email={user?.email || ""}
-                                amount={Number(payment.amount_due)}
-                                repaymentScheduleId={payment.id}
-                              />
-                            )}
+                            {loan.status === "approved" &&
+                              payment.status === "pending" && (
+                                <MakePaymentButton
+                                  email={user?.email || ""}
+                                  amount={Number(payment.amount_due)}
+                                  repaymentScheduleId={payment.id}
+                                />
+                              )}
                           </div>
                         </div>
                       ))}
