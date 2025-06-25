@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/card";
 import { useAdminLoans } from "@/hooks/useAdminLoans";
 
-import { Download, Edit, Eye, Plus, Search, Trash2 } from "lucide-react";
+import { Edit, Eye, Search, Trash2 } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 

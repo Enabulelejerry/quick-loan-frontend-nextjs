@@ -6,6 +6,8 @@ import { useEffect } from "react";
 import { toast } from "sonner";
 import { publicApi } from "@/lib/publicApi";
 
+import { parseAxiosError } from "@/lib/parseError";
+
 export default function VerifyPaymentPage() {
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -21,8 +23,8 @@ export default function VerifyPaymentPage() {
         );
         toast.success(res.data.message || "Payment verified!");
         router.push("/user/history");
-      } catch (err: any) {
-        toast.error(err?.response?.data?.error || "Verification failed.");
+      } catch (err: unknown) {
+        parseAxiosError(err);
         router.push("/user/history");
       }
     };

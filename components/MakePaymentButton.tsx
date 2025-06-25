@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import api from "@/lib/axios"; // Your Axios instance
 
+import { parseAxiosError } from "@/lib/parseError";
+
 interface MakePaymentButtonProps {
   repaymentScheduleId: number;
   email: string;
@@ -45,10 +47,8 @@ const MakePaymentButton = ({
           toast.warning("Payment was cancelled.");
         },
       });
-    } catch (err: any) {
-      toast.error(
-        err?.response?.data?.message || "Payment failed to initialize"
-      );
+    } catch (err) {
+      parseAxiosError(err);
     }
   };
 
