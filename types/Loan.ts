@@ -28,7 +28,7 @@ export type RepaymentSchedule = {
   id: number;
   due_date: string;
   amount_due: string;
-  status: "paid" | "pending";
+  status: "paid" | "pending" | "approved";
 };
 
 export type UserLoan = {

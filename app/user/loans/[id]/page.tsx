@@ -200,11 +200,12 @@ export default function LoanDetailPage() {
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <div className="overflow-x-auto w-full max-w-full">
+                    {/* DESKTOP TABLE (hidden on small screens) */}
+                    <div className="hidden md:block overflow-x-auto">
                       <table className="w-full text-sm">
                         <thead>
                           <tr className="border-b">
-                            <th className="text-left py-2">Month</th>
+                            <th className="text-left py-2">Day</th>
                             <th className="text-left py-2">Due Date</th>
                             <th className="text-right py-2">Payment</th>
                             <th className="text-right py-2">Principal</th>
@@ -213,12 +214,12 @@ export default function LoanDetailPage() {
                           </tr>
                         </thead>
                         <tbody>
-                          {loan?.repayment_schedules?.map((payment) => (
+                          {loan?.repayment_schedules?.map((payment, index) => (
                             <tr
                               key={payment.id}
                               className="border-b hover:bg-gray-50"
                             >
-                              <td className="py-3">{payment.id}</td>
+                              <td className="py-3">{index + 1}</td>
                               <td className="py-3">
                                 {new Date(
                                   payment?.due_date
@@ -242,7 +243,7 @@ export default function LoanDetailPage() {
                                 </div>
                               </td>
                               <td className="py-3">
-                                {payment.status === "pending" && (
+                                {payment.status === "approved" && (
                                   <MakePaymentButton
                                     email={user?.email || ""}
                                     amount={Number(payment.amount_due)}
@@ -254,6 +255,48 @@ export default function LoanDetailPage() {
                           ))}
                         </tbody>
                       </table>
+                    </div>
+
+                    {/* MOBILE STACKED VIEW (visible only on small screens) */}
+                    <div className="md:hidden space-y-4">
+                      {loan?.repayment_schedules?.map((payment, index) => (
+                        <div
+                          key={payment.id}
+                          className="border p-4 rounded-lg shadow-sm bg-white"
+                        >
+                          <p className="text-sm text-gray-500">
+                            <strong>Day:</strong> {index + 1}
+                          </p>
+                          <p className="text-sm text-gray-500">
+                            <strong>Due Date:</strong>{" "}
+                            {new Date(payment?.due_date).toLocaleDateString()}
+                          </p>
+                          <p className="text-sm text-gray-500">
+                            <strong>Payment:</strong> N{payment?.amount_due}
+                          </p>
+                          <p className="text-sm text-gray-500">
+                            <strong>Principal:</strong> N{loan?.amount}
+                          </p>
+                          <div className="flex items-center gap-2 mt-2">
+                            <span
+                              className={`inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs ${getStatusColor(
+                                payment.status
+                              )}`}
+                            >
+                              {getStatusIcon(payment.status)}
+                              {payment.status.charAt(0).toUpperCase() +
+                                payment.status.slice(1)}
+                            </span>
+                            {payment.status === "approved" && (
+                              <MakePaymentButton
+                                email={user?.email || ""}
+                                amount={Number(payment.amount_due)}
+                                repaymentScheduleId={payment.id}
+                              />
+                            )}
+                          </div>
+                        </div>
+                      ))}
                     </div>
                   </CardContent>
                 </Card>
